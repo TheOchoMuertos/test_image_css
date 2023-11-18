@@ -3,8 +3,7 @@ FROM ghcr.io/parkervcp/steamcmd:debian
 
 LABEL       author="SIXSIXSIX666" maintainer="deathdeath335@gmail.com"
 
-RUN 		apt-get update -y \
- 			&& useradd -d /home/container -m container
+RUN 		apt-get update -y
 
 # Set the locale
 RUN apt-get -y install locales
