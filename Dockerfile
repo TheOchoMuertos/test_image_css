@@ -1,9 +1,10 @@
 # Используем официальный образ Nginx с поддержкой PHP
-FROM ghcr.io/parkervcp/steamcmd:debian
+FROM ubuntu:22.04
 
 LABEL       author="SIXSIXSIX666" maintainer="deathdeath335@gmail.com"
 
-RUN 		apt-get update -y
+RUN 		apt-get update -y \
+ 			&& useradd -d /home/container -m container
 
 # Set the locale
 RUN apt-get -y install locales
