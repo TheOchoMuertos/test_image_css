@@ -22,5 +22,5 @@ jobs:
 
       - name: 'Build Inventory Image'
         run: |
-          docker build . --tag ghcr.io/<TheOchoMuertos/test_image_css:latest
+          docker build . --tag ghcr.io/TheOchoMuertos/test_image_css:latest
           docker push ghcr.io/TheOchoMuertos/test_image_css:latest
