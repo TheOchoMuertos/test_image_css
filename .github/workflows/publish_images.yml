@@ -48,13 +48,24 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Build and push
+      - name: Build and push CSS image
         uses: docker/build-push-action@v3
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: ./
-          file: image/css/Dockerfile
-          tags: theochomuertos/test_image_css:latest
+          context: /image/css
+          file: /image/css/Dockerfile
+          tags: ${{ env.IMAGE_TAG }}
+          push: true
+          cache-from: type=registry,ref=${{ env.CACHE_TAG }}
+          cache-to: type=registry,ref=${{ env.CACHE_TAG }},mode=max
+
+      - name: Build and push PHP 7.4
+        uses: docker/build-push-action@v3
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: /image/php7.4
+          file: /image/php7.4/Dockerfile
+          tags: ${{ env.IMAGE_TAG }}
           push: true
           cache-from: type=registry,ref=${{ env.CACHE_TAG }}
           cache-to: type=registry,ref=${{ env.CACHE_TAG }},mode=max
