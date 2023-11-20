@@ -18,7 +18,7 @@ RUN echo "zend_extension = ioncube_loader_lin_7.4.so" > /usr/local/etc/php/conf.
 
 RUN chown -R www-data:www-data /var/www/html
 
-RUN adduser -D container
+RUN useradd -m -d /home/container container
 RUN chown container:container -R /home/container
 
 USER container
