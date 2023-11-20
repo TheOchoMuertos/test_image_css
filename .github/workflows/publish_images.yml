@@ -54,7 +54,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./
           file: image/css/Dockerfile
-          tags: ${{ env.IMAGE_TAG }}
+          tags: theochomuertos/test_image_css
           push: true
           cache-from: type=registry,ref=${{ env.CACHE_TAG }}
           cache-to: type=registry,ref=${{ env.CACHE_TAG }},mode=max
