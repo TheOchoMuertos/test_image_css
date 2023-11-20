@@ -18,6 +18,7 @@ env:
   TAG_NAME: latest
   # Cache image may be kept private
   CACHE_IMAGE_NAME: buildcache
+  IMAGE_TAG: ghcr.io/theochomuertos/test_image_css
   IMAGE_PHP: php7.4
   IMAGE_CSS: css
 
@@ -33,8 +34,8 @@ jobs:
         run: |
         
           # IMAGE_TAG=ghcr.io/user/repo:latest
-          : "${{ env.REGISTRY }}/${{ github.repository }}:${{ env.TAG_NAME }}"
-          echo "IMAGE_TAG=${_,,}" | tee -a $GITHUB_ENV
+          #: "${{ env.REGISTRY }}/${{ github.repository }}:${{ env.TAG_NAME }}"
+          #echo "IMAGE_TAG=${_,,}" | tee -a $GITHUB_ENV
         
           # CACHE_TAG=ghcr.io/user/buildcache:repo
           : "${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.CACHE_IMAGE_NAME }}:${GITHUB_REPOSITORY#*/}"
@@ -56,7 +57,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./
           file: ./image/css/Dockerfile
-          tags: ${{ env.IMAGE_CSS }}
+          tags: ${{ env.IMAGE_CSS }}:${{ env.IMAGE_CSS }}
           push: true
           cache-from: type=registry,ref=${{ env.CACHE_TAG }}
           cache-to: type=registry,ref=${{ env.CACHE_TAG }},mode=max
