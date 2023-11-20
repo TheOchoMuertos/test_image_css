@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
 # Устанавливаем MySQL 5.7
 RUN apt-get install -y software-properties-common && \
     apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc' && \
-    add-apt-repository 'deb [arch=amd64,arm64,ppc64el] https://mariadb.mirror.nucleus.be/repo/10.7/debian buster main' && \
+    add-apt-repository 'deb [arch=amd64,arm64,ppc64el] https://mariadb.mirror.liquidtelecom.com/repo/10.7/debian buster main' && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server
 
