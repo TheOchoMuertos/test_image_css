@@ -15,7 +15,8 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  TAG_NAME: latest
+  TAG_NAME_CSS: css
+  TAG_NAME_PHP74: php7.4
   # Cache image may be kept private
   CACHE_IMAGE_NAME: buildcache
 
@@ -31,9 +32,12 @@ jobs:
         run: |
         
           # IMAGE_TAG=ghcr.io/user/repo:latest
-          : "${{ env.REGISTRY }}/${{ github.repository }}:${{ env.TAG_NAME }}"
-          echo "IMAGE_TAG=${_,,}" | tee -a $GITHUB_ENV
-        
+          : "${{ env.REGISTRY }}/${{ github.repository }}:${{ env.TAG_NAME_CSS }}"
+          echo "IMAGE_TAG_CSS=${_,,}" | tee -a $GITHUB_ENV
+
+          : "${{ env.REGISTRY }}/${{ github.repository }}:${{ env.TAG_NAME_PHP74 }}"
+          echo "IMAGE_TAG_PHP=${_,,}" | tee -a $GITHUB_ENV
+
           # CACHE_TAG=ghcr.io/user/buildcache:repo
           : "${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.CACHE_IMAGE_NAME }}:${GITHUB_REPOSITORY#*/}"
           echo "CACHE_TAG=${_,,}" | tee -a $GITHUB_ENV
@@ -54,7 +58,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./
           file: image/css/Dockerfile
-          tags: ${{ env.IMAGE_TAG }}
+          tags: ${{ env.IMAGE_TAG_CSS }}
           push: true
           cache-from: type=registry,ref=${{ env.CACHE_TAG }}
           cache-to: type=registry,ref=${{ env.CACHE_TAG }},mode=max
@@ -65,7 +69,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./
           file: image/php7.4/Dockerfile
-          tags: ${{ env.IMAGE_TAG }}
+          tags: ${{ env.IMAGE_TAG_PHP }}
           push: true
           cache-from: type=registry,ref=${{ env.CACHE_TAG }}
           cache-to: type=registry,ref=${{ env.CACHE_TAG }},mode=max
