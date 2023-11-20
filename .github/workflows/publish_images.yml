@@ -42,7 +42,9 @@ jobs:
       - name: Build and push Docker images
         run: |
           for folder in image/*; do
+            echo "Checking folder: $folder"
             if [ -d "$folder" ]; then
+              echo "Building image in $folder"
               docker buildx build \
                 --builder ${{ steps.buildx.outputs.name }} \
                 -f ./$folder/Dockerfile \
@@ -51,5 +53,7 @@ jobs:
                 --push \
                 --cache-from type=registry,ref=${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.CACHE_IMAGE_NAME }}:${{ env.IMAGE_NAME }} \
                 --cache-to type=registry,ref=${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.CACHE_IMAGE_NAME }}:${{ env.IMAGE_NAME }},mode=max
+            else
+              echo "Skipping non-directory: $folder"
             fi
           done
