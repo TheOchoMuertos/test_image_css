@@ -1,10 +1,22 @@
-FROM alpine:latest
+FROM php:7.4-fpm
 
-LABEL author="SIXSIXSIX666" maintainer=""
+# Устанавливаем необходимые зависимости
+RUN apt-get update && apt-get install -y \
+    nginx \
+    git \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-RUN apk --no-cache update
-RUN apk --no-cache upgrade
-RUN apk --no-cache add curl ca-certificates nginx php82 php82-fpm php82-opcache php82-gd php82-zlib php82-curl
+RUN curl -o ioncube_loader_lin_7.4.so https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz && \
+    tar -zxvf ioncube_loaders_lin_x86-64.tar.gz && \
+    cp ioncube/ioncube_loader_lin_7.4.so $(php -r "echo ini_get('extension_dir');") && \
+    rm -rf ioncube ioncube_loaders_lin_x86-64.tar.gz
+
+RUN echo "zend_extension = ioncube_loader_lin_7.4.so" > /usr/local/etc/php/conf.d/0ioncube.ini
+
+RUN chown -R www-data:www-data /var/www/html
 
 RUN adduser -D container
 RUN chown container:container -R /home/container
