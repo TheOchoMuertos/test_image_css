@@ -26,5 +26,5 @@ ENV USER=container HOME=/home/container
 
 WORKDIR /home/container
 
-ADD ./image/css/entrypoint.sh /entrypoint.sh
+ADD ./image/php7.4/entrypoint.sh /entrypoint.sh
 CMD ["/bin/bash", "/entrypoint.sh"]
