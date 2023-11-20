@@ -52,8 +52,8 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: /image/css
-          file: /image/css/Dockerfile
+          context: image/css
+          file: image/css/Dockerfile
           tags: ${{ env.IMAGE_TAG }}
           push: true
           cache-from: type=registry,ref=${{ env.CACHE_TAG }}
@@ -63,8 +63,8 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: /image/php7.4
-          file: /image/php7.4/Dockerfile
+          context: image/php7.4
+          file: image/php7.4/Dockerfile
           tags: ${{ env.IMAGE_TAG }}
           push: true
           cache-from: type=registry,ref=${{ env.CACHE_TAG }}
