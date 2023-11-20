@@ -27,4 +27,4 @@ ENV USER=container HOME=/home/container
 WORKDIR /home/container
 
 ADD ./image/css/entrypoint.sh /entrypoint.sh
-CMD ["/bin/ash", "/entrypoint.sh"]
+CMD ["/bin/bash", "/entrypoint.sh"]
