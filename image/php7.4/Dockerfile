@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd curl zip
 
+RUN docker-php-ext-install mysqli
+
 # Устанавливаем ionCube Loader
 RUN curl -o ioncube_loaders.tar.gz https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz && \
     tar -zxvf ioncube_loaders.tar.gz && \
