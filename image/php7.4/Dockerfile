@@ -2,6 +2,8 @@ FROM php:7.4-fpm
 
 # Устанавливаем необходимые зависимости
 RUN apt-get update && apt-get install -y \
+    mariadb-client \
+    mariadb-server \
     nginx \
     git \
     libpng-dev \
@@ -13,13 +15,6 @@ RUN apt-get update && apt-get install -y \
     libmcrypt-dev \
     libzip-dev \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd curl zip
-
-# Устанавливаем MySQL 5.7
-RUN apt-get install -y software-properties-common
-RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
-RUN add-apt-repository 'deb [arch=amd64,arm64,ppc64el] https://mariadb.mirror.liquidtelecom.com/repo/10.7/debian buster main'
-RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server
 
 # Устанавливаем ionCube Loader
 RUN curl -o ioncube_loaders.tar.gz https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz && \
